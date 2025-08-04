@@ -1,0 +1,26 @@
+{
+  "name": "monorepo-top-blogapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:user": "npm --workspace apps/frontend-user run dev",
+    "dev:admin": "npm --workspace apps/frontend-admin run dev",
+    "dev:backend": "npm --workspace apps/backend run dev",
+    "dev:all": "npm --workspace apps/frontend-user run dev & npm --workspace apps/frontend-admin run dev & npm --workspace apps/backend run dev",
+    "build:user": "npm --workspace apps/frontend-user run build",
+    "build:admin": "npm --workspace apps/frontend-admin run build",
+    "build:backend": "npm --workspace apps/backend run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "workspaces": [
+    "packages/utils",
+    "packages/ui",
+    "apps/frontend-user",
+    "apps/frontend-admin",
+    "apps/backend"
+  ]
+}

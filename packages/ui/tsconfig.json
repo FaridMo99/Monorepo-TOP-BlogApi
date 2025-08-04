@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "paths": {
+      "@/components/*": ["./components/*"],
+      "@/lib/*": ["components/lib/*"]
+    }
+  },
+  "include": ["components", "components/lib"],
+  "exclude": ["node_modules", "dist"]
+}
