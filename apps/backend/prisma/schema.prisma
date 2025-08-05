@@ -25,7 +25,7 @@ model BlogPost {
   text         String
   layout       Layout    @default(STANDARD)
   createdAt    DateTime  @default(now())
-  headerImage  Bytes
+  isPublic     Boolean @default(false)
   user         User      @relation(fields: [userId], references: [id])
   userId       String
   likes        User[]    @relation("PostLikes")

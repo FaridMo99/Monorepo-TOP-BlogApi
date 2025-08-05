@@ -1,18 +1,7 @@
-import { useState } from 'react'
-import './App.css'
-import { Button } from "@monorepotopblogapi/ui"
+import "./App.css";
 
 function App() {
-  const [state,setState] = useState(false)
-
-  return (
-    <>
-      <Button onClick={()=>{setState(pre=>!pre)}}>
-        Hello
-      </Button>
-      {state && <p className='bg-green-500'>!!!</p>}
-    </>
-  )
+  return <></>;
 }
 
-export default App
+export default App;

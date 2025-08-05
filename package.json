@@ -10,7 +10,11 @@
     "dev:all": "npm --workspace apps/frontend-user run dev & npm --workspace apps/frontend-admin run dev & npm --workspace apps/backend run dev",
     "build:user": "npm --workspace apps/frontend-user run build",
     "build:admin": "npm --workspace apps/frontend-admin run build",
-    "build:backend": "npm --workspace apps/backend run build"
+    "build:backend": "npm --workspace apps/backend run build",
+    "prettier": "prettier --write ."
+  },
+  "dependencies": {
+    "@monorepotopblogapi/schemas": "1.0.0"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +25,10 @@
     "packages/ui",
     "apps/frontend-user",
     "apps/frontend-admin",
-    "apps/backend"
-  ]
+    "apps/backend",
+    "packages/schemas"
+  ],
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
 }
