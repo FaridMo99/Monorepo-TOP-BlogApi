@@ -1,6 +1,15 @@
 import { loginSchema } from "@monorepotopblogapi/schemas";
-import { login } from "@/lib/authentication";
 import AuthForm from "@monorepotopblogapi/ui/components/AuthForm";
+
+//fix this later so this component is the login component from users
+//exported from packages
+async function login(formData) {
+  const res = await fetch("", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  })
+}
 
 function Login() {
   return (

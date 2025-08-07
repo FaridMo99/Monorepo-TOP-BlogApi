@@ -35,8 +35,8 @@ export const signupSchema = z.object({
 const layoutEnum = z.enum(["STANDARD", "FEATURED", "GALLERY"]);
 
 export const blogPostSchema = z.object({
-  title: z.string(),
-  text: z.string(),
+  title: z.string("Field required").nonempty("Field required"),
+  text: z.string("Field required").nonempty("Field required"),
   layout: layoutEnum.optional(),
   isPublic: z.boolean().optional(),
   userId: z.string(),

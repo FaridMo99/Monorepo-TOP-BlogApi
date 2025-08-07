@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@tanstack/react-query": "^5.84.1",
+    "zustand": "^5.0.7"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
 }

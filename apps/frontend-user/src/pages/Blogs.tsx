@@ -1,6 +1,10 @@
+import PreviewSection from "@/components/home/PreviewSection"
+
 function Blogs() {
   return (
-    <div>Blogs</div>
+    <main>
+        <PreviewSection title="Blog Posts" />
+    </main>
   )
 }
 

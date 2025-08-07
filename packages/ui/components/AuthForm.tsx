@@ -15,8 +15,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { type AuthFunctionReturn } from "@/lib/authentication";
-import type { ZodType } from "zod";
+import type { z, ZodType } from "zod";
+import { userSchema } from "@monorepotopblogapi/schemas";
+
+export type AuthFunctionReturn = Promise<z.infer<typeof userSchema>>;
+
 
 type AuthFormProps<T extends FieldValues> = {
   mutationFn: (formData: T) => AuthFunctionReturn;

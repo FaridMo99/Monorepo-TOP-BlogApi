@@ -1,29 +1,25 @@
 import { useQuery } from "@tanstack/react-query"
-import type { BlogPost } from "@monorepotopblogapi/schemas"
 import PostCard from "../PostCard"
+import { getPosts } from "@monorepotopblogapi/utils"
 
-async function getPosts():Promise<BlogPost[]> {
-  const res = await fetch(`http://localhost:3000/posts?sort=desc&limit=3`)
-  if (!res.ok) {
-    const error = await res.json()
-    throw new Error(error.message)
-  }
-  const posts = await res.json()
-  return posts
+type PreviewSectionProps = {
+  title: string,
+  queryString?:string
 }
 
 
-function PreviewSection() {
+function PreviewSection({title,queryString=""}:PreviewSectionProps) {
   const { data:Posts, isLoading, isError } = useQuery({
     queryKey: ["get preview Posts"],
-    queryFn:getPosts
+    queryFn: () => getPosts(queryString),
+    retry:false
   })
 
   if(isLoading) return <p>Loading...</p>
 
   return (
     <section className="w-full">
-      <h2 className="text-3xl font-medium mb-4">Latest Posts:</h2>
+      <h2 className="text-3xl font-medium mb-4">{ title}</h2>
       {isLoading && <p>Loading</p>}
       {/*(isError || !Posts || Posts.length === 0) && <p>No Posts found...</p>*/}
       <div className="flex flex-col md:flex-row items-center justify-evenly gap-y-4 md:min-h-auto md:gap-x-4">

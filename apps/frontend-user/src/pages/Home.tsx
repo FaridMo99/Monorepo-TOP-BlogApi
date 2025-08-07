@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       <Me />
-      <PreviewSection/>
+      <PreviewSection title="Latest Posts:" queryString="?sort=desc&limit=3" />
     </>
   );
 }

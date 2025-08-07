@@ -1,6 +1,6 @@
 import { signupSchema } from "@monorepotopblogapi/schemas";
 import { signup } from "@/lib/authentication";
-import AuthForm from "@/components/AuthForm";
+import AuthForm from "@monorepotopblogapi/ui/components/AuthForm";
 
 function Signup() {
   return (

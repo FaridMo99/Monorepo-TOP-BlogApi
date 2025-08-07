@@ -11,6 +11,8 @@
     "build:user": "npm --workspace apps/frontend-user run build",
     "build:admin": "npm --workspace apps/frontend-admin run build",
     "build:backend": "npm --workspace apps/backend run build",
+    "build:all": "npm --workspace apps/frontend-user run build & npm --workspace apps/frontend-admin run build & npm --workspace apps/backend run build",
+    "start":"npm --workspace apps/backend run start",
     "prettier": "prettier --write ."
   },
   "dependencies": {

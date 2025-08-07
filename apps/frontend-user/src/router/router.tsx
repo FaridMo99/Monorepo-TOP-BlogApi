@@ -2,7 +2,7 @@ import MainLayout from "@/layouts/MainLayout";
 import { privateAuthCheck, publicAuthCheck } from "@/lib/authChecks";
 import Blogpost from "@/pages/Blogpost";
 import Blogs from "@/pages/Blogs";
-import Error from "@/pages/Error";
+import Error from "@monorepotopblogapi/ui/components/Error";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
