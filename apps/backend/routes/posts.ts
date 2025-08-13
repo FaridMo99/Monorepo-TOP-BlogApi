@@ -1,9 +1,5 @@
 import { Router } from "express";
-import prisma from "../db/prismaClient";
-import { BlogPost } from "../generated/prisma";
-import { blogPostSchema } from "@monorepotopblogapi/schemas";
-import z from "zod";
-import { createPost, getAllPosts, getPostById } from "../controller/postsController";
+import { createPost, deleteCommentByPostIdAndCommentId, deletePostById, getAllPosts, getPostById, toggleLikeByPostIdAndCommentId, updatePostById } from "../controller/postsController";
 import { authenticateToken } from "../middleware/middleware";
 
 
@@ -22,45 +18,26 @@ postsRouter.get("/:postId",getPostById);
 postsRouter.post("/", authenticateToken, createPost);
 
 //delete post
-postsRouter.delete("/:postId", authenticateToken, async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
-});
+postsRouter.delete("/:postId", authenticateToken,deletePostById);
 
 //update post (publish, unpublish) and like
-postsRouter.patch("/:postId", authenticateToken, async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
-});
+postsRouter.patch("/:postId", authenticateToken,updatePostById);
 
 //commenting
-postsRouter.post("/:postId", authenticateToken, async (req, res, next) => {
-  try {
-  } catch (error) {}
-});
+postsRouter.post("/:postId", authenticateToken,);
 
 //delete comment
 postsRouter.delete(
   "/:postId/:commentId",
   authenticateToken,
-  async (req, res, next) => {
-    try {
-    } catch (error) {}
-  }
+deleteCommentByPostIdAndCommentId
 );
 
 //like/unlike comment
 postsRouter.patch(
   "/:postId/:commentId",
   authenticateToken,
-  async (req, res, next) => {
-    try {
-    } catch (error) {}
-  }
+  toggleLikeByPostIdAndCommentId
 );
 
 export default postsRouter;
