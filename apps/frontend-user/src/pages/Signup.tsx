@@ -11,7 +11,7 @@ function Signup() {
         fields={[
           { name: "username", label: "Username" },
           { name: "email", label: "E-Mail" },
-          { name: "password", label: "Password" },
+          { name: "password", label: "Password" ,type:"password"},
         ]}
         link={{
           linkPath: "/login",

@@ -10,7 +10,7 @@ function Login() {
         mutationKeys={["login user"]}
         fields={[
           { name: "username", label: "Username" },
-          { name: "password", label: "Password" },
+          { name: "password", label: "Password",type:"password" },
         ]}
         link={{
           linkPath: "/signup",

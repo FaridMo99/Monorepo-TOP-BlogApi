@@ -10,7 +10,7 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 export type AuthFunctionReturn = Promise<z.infer<typeof userSchema>>;
 
 export async function signup(formData: SignupFormData): AuthFunctionReturn {
-  const res = await fetch("", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/signup/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
@@ -26,7 +26,7 @@ export async function signup(formData: SignupFormData): AuthFunctionReturn {
 }
 
 export async function login(formData: LoginFormData): AuthFunctionReturn {
-  const res = await fetch("", {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),

@@ -1,19 +1,19 @@
 import { Router } from "express";
 import { deleteUserById, getAllUsers, getUserById, updateUserById } from "../controller/usersController";
-import { authMiddleware } from "../middleware/middleware";
+import { authenticateToken } from "../middleware/middleware";
 
 const usersRouter = Router();
 
 //get all users
-usersRouter.get("/",authMiddleware,getAllUsers);
+usersRouter.get("/", authenticateToken, getAllUsers);
 
 //get single user
-usersRouter.get("/:userId",authMiddleware,getUserById);
+usersRouter.get("/:userId", authenticateToken, getUserById);
 
 //delete single user
-usersRouter.delete("/:userId",authMiddleware,deleteUserById);
+usersRouter.delete("/:userId", authenticateToken, deleteUserById);
 
 //update single user
-usersRouter.patch("/:userId",authMiddleware,updateUserById);
+usersRouter.patch("/:userId", authenticateToken, updateUserById);
 
 export default usersRouter;

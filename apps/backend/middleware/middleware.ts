@@ -1,17 +1,20 @@
 import jwt from "jsonwebtoken";
 import prisma from "../db/prismaClient";
+import { Request, Response, NextFunction } from "express";
+import { User } from "../generated/prisma";
 
-//generate jwt
-export function generateToken(userId: string) {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET_KEY!, {
-    expiresIn: "15min",
-  });
+export interface Decoded extends jwt.JwtPayload {
+  id: string
+}
+
+interface AuthReq extends Request {
+  user?:User
 }
 
 //auth middleware
-  //middleware already gets the user so ne need to get the
+  //middleware already gets the user so need to get the
   //user again inside the controllers/routes
-export async function authMiddleware(req, res, next) {
+export async function authenticateToken(req:AuthReq, res:Response, next:NextFunction) {
   const authHeader = req.headers.authorization;
 
   if (authHeader && authHeader.startsWith("Bearer ")) {
@@ -22,7 +25,10 @@ export async function authMiddleware(req, res, next) {
     }
     try {
       //Decode to get id from payload
-      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY!);
+      const decoded = jwt.verify(
+        token,
+        process.env.ACCESS_TOKEN_SECRET_KEY!
+      ) as Decoded;
 
       //check if tampered token
       const user = await prisma.user.findUnique({

@@ -17,6 +17,7 @@ model User {
   comments       Comment[]
   likedPosts     BlogPost[]   @relation("PostLikes")
   likedComments  Comment[]    @relation("CommentLikes")
+  refreshTokens  RefreshToken[]  
 }
 
 model BlogPost {
@@ -25,7 +26,7 @@ model BlogPost {
   text         String
   layout       Layout    @default(STANDARD)
   createdAt    DateTime  @default(now())
-  isPublic     Boolean @default(false)
+  isPublic     Boolean   @default(false)
   user         User      @relation(fields: [userId], references: [id])
   userId       String
   likes        User[]    @relation("PostLikes")
@@ -33,13 +34,26 @@ model BlogPost {
   }
 
 model Comment {
-  id          String    @id @default(uuid())
+  id          String    @id  @default(uuid())
   createdAt   DateTime  @default(now())
   blogPost    BlogPost  @relation(fields: [blogPostId], references: [id])
   blogPostId  String
   user        User      @relation(fields: [userId], references: [id])
   userId      String
   likes       User[]    @relation("CommentLikes")
+}
+
+model RefreshToken {
+  id            String        @id @default(uuid())
+  user          User          @relation(fields: [userId], references: [id])
+  userId        String
+  token         String        @unique
+  createdAt     DateTime      @default(now())
+  expiresAt     DateTime
+  revoked       Boolean       @default(false)
+  replacedBy    RefreshToken? @relation("TokenReplacement", fields: [replacedById], references: [id])
+  replacedById  String? @unique
+  replaces      RefreshToken? @relation("TokenReplacement")
 }
 
 enum Layout {

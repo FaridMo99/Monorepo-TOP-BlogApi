@@ -4,7 +4,7 @@ import { BlogPost } from "../generated/prisma";
 import { blogPostSchema } from "@monorepotopblogapi/schemas";
 import z from "zod";
 import { createPost, getAllPosts, getPostById } from "../controller/postsController";
-import { authMiddleware } from "../middleware/middleware";
+import { authenticateToken } from "../middleware/middleware";
 
 
 //auth middleware only checks if you logged in
@@ -19,10 +19,10 @@ postsRouter.get("/",getAllPosts);
 postsRouter.get("/:postId",getPostById);
 
 //create post
-postsRouter.post("/",authMiddleware,createPost);
+postsRouter.post("/", authenticateToken, createPost);
 
 //delete post
-postsRouter.delete("/:postId",authMiddleware, async (req, res, next) => {
+postsRouter.delete("/:postId", authenticateToken, async (req, res, next) => {
   try {
   } catch (error) {
     next(error);
@@ -30,7 +30,7 @@ postsRouter.delete("/:postId",authMiddleware, async (req, res, next) => {
 });
 
 //update post (publish, unpublish) and like
-postsRouter.patch("/:postId",authMiddleware, async (req, res, next) => {
+postsRouter.patch("/:postId", authenticateToken, async (req, res, next) => {
   try {
   } catch (error) {
     next(error);
@@ -38,21 +38,29 @@ postsRouter.patch("/:postId",authMiddleware, async (req, res, next) => {
 });
 
 //commenting
-postsRouter.post("/:postId",authMiddleware, async (req, res, next) => {
+postsRouter.post("/:postId", authenticateToken, async (req, res, next) => {
   try {
   } catch (error) {}
 });
 
 //delete comment
-postsRouter.delete("/:postId/:commentId",authMiddleware, async (req, res, next) => {
-  try {
-  } catch (error) {}
-});
+postsRouter.delete(
+  "/:postId/:commentId",
+  authenticateToken,
+  async (req, res, next) => {
+    try {
+    } catch (error) {}
+  }
+);
 
 //like/unlike comment
-postsRouter.patch("/:postId/:commentId",authMiddleware, async (req, res, next) => {
-  try {
-  } catch (error) {}
-});
+postsRouter.patch(
+  "/:postId/:commentId",
+  authenticateToken,
+  async (req, res, next) => {
+    try {
+    } catch (error) {}
+  }
+);
 
 export default postsRouter;

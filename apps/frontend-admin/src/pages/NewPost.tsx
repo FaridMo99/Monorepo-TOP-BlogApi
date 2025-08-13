@@ -145,3 +145,4 @@ function NewPost() {
 }
 
 export default NewPost
+//changing layout doesnt work
