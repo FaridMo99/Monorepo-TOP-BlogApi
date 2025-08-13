@@ -4,17 +4,17 @@ import { Request, Response, NextFunction } from "express";
 import { User } from "../generated/prisma";
 
 export interface Decoded extends jwt.JwtPayload {
-  id: string
-}
-
-interface AuthReq extends Request {
-  user?:User
+  id: string;
 }
 
 //auth middleware
-  //middleware already gets the user so need to get the
-  //user again inside the controllers/routes
-export async function authenticateToken(req:AuthReq, res:Response, next:NextFunction) {
+//middleware already gets the user so need to get the
+//user again inside the controllers/routes
+export async function authenticateToken(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const authHeader = req.headers.authorization;
 
   if (authHeader && authHeader.startsWith("Bearer ")) {
@@ -48,4 +48,25 @@ export async function authenticateToken(req:AuthReq, res:Response, next:NextFunc
   } else {
     return res.status(401).json({ message: "No token provided" });
   }
+}
+
+export function adminAuthorizationMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { isAdmin } = req.user as User;
+  if (!isAdmin) return res.status(401).json({ message: "Unauthorized" });
+  next();
+}
+
+export function sameUserAuthorization(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { id } = req.user as User;
+  const { userId } = req.params;
+  if (id !== userId) return res.status(401).json({ message: "Unauthorized" });
+  next();
 }

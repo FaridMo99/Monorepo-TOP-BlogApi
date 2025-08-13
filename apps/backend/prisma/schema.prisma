@@ -27,7 +27,7 @@ model BlogPost {
   layout       Layout    @default(STANDARD)
   createdAt    DateTime  @default(now())
   isPublic     Boolean   @default(false)
-  user         User      @relation(fields: [userId], references: [id])
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
   likes        User[]    @relation("PostLikes")
   comments     Comment[]
@@ -38,7 +38,8 @@ model Comment {
   createdAt   DateTime  @default(now())
   blogPost    BlogPost  @relation(fields: [blogPostId], references: [id])
   blogPostId  String
-  user        User      @relation(fields: [userId], references: [id])
+  content     String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   likes       User[]    @relation("CommentLikes")
 }

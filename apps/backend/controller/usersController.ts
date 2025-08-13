@@ -8,6 +8,7 @@ import bcrypt from "bcrypt"
 export async function getAllUsers(req: Request, res: Response, next: NextFunction) {
   try {
     const users: User[] | [] = await prisma.user.findMany();
+    const safeUsers = users.map(user=> ({id:user.id,username:user.username,email:user.email}))
     return res.status(200).json(users);
   } catch (error) {
     next(error);
@@ -25,7 +26,8 @@ export async function getUserById(req: Request, res: Response, next: NextFunctio
     if (!user) {
       return res.status(400).json({ message: "No valid User found" });
     }
-    return res.status(200).json(user);
+    const {password, ...safeUser} = user
+    return res.status(200).json(safeUser);
   } catch (error) {
     next(error);
   }
@@ -42,7 +44,9 @@ export async function deleteUserById(req: Request, res: Response, next: NextFunc
     if (!user) {
       return res.status(400).json({ message: "User not Found" });
     }
-    return res.status(200).json(user);
+
+    const { password, ...safeUser } = user;
+    return res.status(200).json(safeUser);
   } catch (error) {
     next(error);
   }
@@ -74,8 +78,8 @@ export async function updateUserById(req: Request, res: Response, next: NextFunc
     if (!user) {
       return res.status(400).json({ message: "User not Found" });
     }
-
-    return res.status(200).json(user);
+    const { password, ...safeUser } = user;
+    return res.status(200).json(safeUser);
   } catch (error) {
     next(error);
   }
