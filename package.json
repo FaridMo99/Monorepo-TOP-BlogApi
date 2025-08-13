@@ -12,11 +12,12 @@
     "build:admin": "npm --workspace apps/frontend-admin run build",
     "build:backend": "npm --workspace apps/backend run build",
     "build:all": "npm --workspace apps/frontend-user run build & npm --workspace apps/frontend-admin run build & npm --workspace apps/backend run build",
-    "start":"npm --workspace apps/backend run start",
+    "start": "npm --workspace apps/backend run start",
     "prettier": "prettier --write ."
   },
   "dependencies": {
-    "@monorepotopblogapi/schemas": "1.0.0"
+    "@monorepotopblogapi/schemas": "1.0.0",
+    "zustand": "^5.0.7"
   },
   "keywords": [],
   "author": "",

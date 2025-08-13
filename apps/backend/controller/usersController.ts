@@ -8,8 +8,8 @@ import bcrypt from "bcrypt"
 export async function getAllUsers(req: Request, res: Response, next: NextFunction) {
   try {
     const users: User[] | [] = await prisma.user.findMany();
-    const safeUsers = users.map(user=> ({id:user.id,username:user.username,email:user.email}))
-    return res.status(200).json(users);
+    const safeUsers = users.map(user=> ({id:user.id,username:user.username,email:user.email,isAdmin:user.isAdmin}))
+    return res.status(200).json(safeUsers);
   } catch (error) {
     next(error);
   }

@@ -42,8 +42,13 @@ export async function refreshToken(
       }
     })
 
-    if(!revokedToken) return res.status(500).json({message:"Server Error.Try again!"})
+    if (!revokedToken) return res.status(500).json({ message: "Server Error.Try again!" })
+    
+    const user: User | null = await prisma.user.findFirst({
+      where:{id}
+    })
 
+    if (!user) return res.status(500).json({ message: "Server Error.Try again!" });
   const refreshToken = jwt.sign(
     { id },
     process.env.REFRESH_TOKEN_SECRET_KEY!,
@@ -75,8 +80,14 @@ export async function refreshToken(
   const accessToken = jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET_KEY!, {
     expiresIn:"15min"
   })
+    const sendUser = {
+      token: accessToken,
+      username: user.username,
+      isAdmin: user.isAdmin,
+      email: user.email
+    };
 
-    res.status(200).json({ token: accessToken })
+    res.status(200).json(sendUser)
 
   } catch (error) {
     next(error)
@@ -119,7 +130,7 @@ export async function login(
         .json({ message: "Login failed, invalid Credentials" });
     }
 
-    const { password, email, id, ...safeUser } = user;
+    const { password, id, ...safeUser } = user;
     const sendUser = { ...safeUser, token: generateToken(user.id) };
 
     const refreshToken = jwt.sign(
@@ -192,7 +203,7 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
     });
 
     if (user) {
-      const { password, email, id, ...safeUser } = user;
+      const { password, id, ...safeUser } = user;
 
       const refreshToken = jwt.sign(
         { id: user.id },
